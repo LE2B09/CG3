@@ -40,6 +40,17 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 const int32_t kClientWidth = 1280;
 const int32_t kClientHeight = 720;
 
+enum BlendMode
+{
+	kBlendModeNone,		// ブレンドなし
+	kBlendModeNormal,	// 通常αブレンド、デフォルト
+	kBlendModeAdd,		// 加算
+	kBlendModeSubtract,	// 減算
+	kBlendModeMultiply, // 乗算
+	kBlendModeScreen,	// スクリーン
+	kcountOfBlendMode,	// 利用してはいけない
+};
+
 // comptrの構造体
 struct D3DResourceLeakChecker
 {
@@ -880,6 +891,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	D3D12_BLEND_DESC blendDesc{};
 	//すべての色要素を書き込む
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
 #pragma endregion
 
 
@@ -1068,7 +1086,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 #pragma region テクスチャファイルを読み込みテクスチャリソースを作成しそれに対してSRVを設定してこれらをデスクリプタヒープにバインド
 	// モデルの読み込み
-	ModelData modelData = LoadObjFile("resources", "axis.obj");
+	ModelData modelData = LoadObjFile("resources", "plane.obj");
 
 	//Textureを読んで転送する
 	DirectX::ScratchImage mipImages = LoadTexture("resources/uvChecker.png");
@@ -1281,10 +1299,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				ImGui::DragFloat3("scale", &transform.scale.x, 0.01f);
 				ImGui::DragFloat3("rotate", &transform.rotate.x, 0.01f);
 				ImGui::DragFloat3("translate", &transform.translate.x, 0.01f);
+				ImGui::ColorEdit4("color", &directionalLightData->color.x);
 				ImGui::Checkbox("useMonsterBall", &useMonsterBall);
 				ImGui::DragFloat3("directionalLight", &directionalLightData->direction.x, 0.01f);
 				ImGui::DragFloat2("UVTranslete", &uvTransformSprite.translate.x, 0.01f, -10.0f, 10.0f);
 				ImGui::DragFloat2("UVScale", &uvTransformSprite.scale.x, 0.01f, -10.0f, 10.0f);
+				ImGui::DragFloat("intensity", &directionalLightData->intensity);
 				ImGui::SliderAngle("UVRotate", &uvTransformSprite.rotate.z);
 				ImGui::End();
 			}
