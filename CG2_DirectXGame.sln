@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CG2_DirectXGame", "CG2_DirectXGame.vcxproj", "{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{4D10540E-6C86-4866-AF50-60ECB50BA00A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj", "{371B9FA9-4C90-4AC6-A123-ACED756D6C77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Profile|x64 = Profile|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Debug|x64.ActiveCfg = Debug|x64
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Debug|x64.Build.0 = Debug|x64
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Profile|x64.ActiveCfg = Release|x64
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Profile|x64.Build.0 = Release|x64
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Release|x64.ActiveCfg = Release|x64
+		{375B9B5C-45E7-425A-AEF7-6FC54B0393F1}.Release|x64.Build.0 = Release|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Debug|x64.ActiveCfg = Debug|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Debug|x64.Build.0 = Debug|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Profile|x64.ActiveCfg = Profile|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Profile|x64.Build.0 = Profile|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x64.ActiveCfg = Release|x64
+		{371B9FA9-4C90-4AC6-A123-ACED756D6C77}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02948939-A2C5-4475-86DB-593583D2BF13}
+	EndGlobalSection
+EndGlobal
