@@ -51,6 +51,17 @@ enum BlendMode
 	kcountOfBlendMode,	// 利用してはいけない
 };
 
+BlendMode currentBlendMode = kBlendModeNone;
+
+const char* blendModeNames[kcountOfBlendMode] = {
+	"kBlendModeNone",        // ブレンドなし
+	"kBlendModeNormal",      // 通常αブレンド、デフォルト
+	"kBlendModeAdd",         // 加算
+	"kBlendModeSubtract",    // 減算
+	"kBlendModeMultiply",    // 乗算
+	"kBlendModeScreen"       // スクリーン
+};
+
 // comptrの構造体
 struct D3DResourceLeakChecker
 {
@@ -889,7 +900,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #pragma region BlendStateの設定を行う
 	//BlendStateの設定
 	D3D12_BLEND_DESC blendDesc{};
-	//すべての色要素を書き込む
+	// ノーマル
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 	blendDesc.RenderTarget[0].BlendEnable = TRUE;
 	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
@@ -898,6 +909,82 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
 	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
 	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+
+	//// 加算
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		  // アルファのソースはそのまま
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	  // アルファの加算操作
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	  // アルファのデスティネーションは無視
+
+	//// 減算
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+
+	//// 乗算
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+
+	//// スクリーン
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+
+	//switch (currentBlendMode)
+	//{
+	//case kBlendModeNone:
+	//	break;
+	//case kBlendModeNormal: // ノーマル
+	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
+	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
+	//	break;
+	//case kBlendModeAdd: // 加算合成
+	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;		  // ソースのアルファ値
+	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			  // 加算操作
+	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			  // デスティネーションのフルカラー
+	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		  // アルファのソースはそのまま
+	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	  // アルファの加算操作
+	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	  // アルファのデスティネーションは無視
+	//	break;
+	//case kBlendModeSubtract: // 減算合成
+	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;		 // ソースのアルファ値
+	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_REV_SUBTRACT; // 逆減算操作
+	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			 // デスティネーションのフルカラー
+	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+	//	break;
+	//case kBlendModeMultiply: // 乗算合成
+	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_DEST_COLOR;	 // デスティネーションのカラー
+	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			 // 加算操作
+	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ZERO;			 // 乗算のためにデスティネーションのブレンドファクターをゼロに設定
+	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+	//	break;
+	//case kBlendModeScreen: // スクリーン合成
+	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_INV_DEST_COLOR; // デスティネーションカラーの反転
+	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			 // 加算操作
+	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			 // デスティネーションのフルカラー
+	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
+	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
+	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
+	//	break;
+	//}
 #pragma endregion
 
 
@@ -1284,6 +1371,26 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			ImGui_ImplWin32_NewFrame();
 			ImGui::NewFrame();
 
+			ImGui::ColorEdit4("color", &materialData->color.x);
+
+			// ImGui の ComboBox を使用して選択肢を表示します
+			if (ImGui::BeginCombo("Select Option", blendModeNames[currentBlendMode]))
+			{
+				for (int n = 0; n < kcountOfBlendMode; n++)
+				{
+					bool isSelected = (currentBlendMode == n);
+					if (ImGui::Selectable(blendModeNames[n], isSelected))
+					{
+						currentBlendMode = static_cast<BlendMode>(n);
+					}
+					if (isSelected)
+					{
+						ImGui::SetItemDefaultFocus(); // 選択中の項目にフォーカスを設定します
+					}
+				}
+				ImGui::EndCombo();
+			}
+
 			//開発用のUIの処理。実際に開発用のUIを出す場合はここをゲーム固有の処理に置き換える
 			ImGui::ShowDemoWindow();
 
@@ -1300,9 +1407,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				ImGui::DragFloat3("rotate", &transform.rotate.x, 0.01f);
 				ImGui::DragFloat3("translate", &transform.translate.x, 0.01f);
 
-				ImGui::ColorEdit4("color", &materialData->color.x);
 				ImGui::DragFloat3("directionalLight", &directionalLightData->direction.x, 0.01f);
-				ImGui::DragFloat("intensity", &directionalLightData->intensity,0.01f);
+				ImGui::DragFloat("intensity", &directionalLightData->intensity, 0.01f);
 
 				ImGui::Checkbox("useMonsterBall", &useMonsterBall);
 				ImGui::DragFloat2("UVTranslete", &uvTransformSprite.translate.x, 0.01f, -10.0f, 10.0f);
