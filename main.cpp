@@ -929,62 +929,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
 	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
 	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
-
-	//switch (currentBlendMode)
-	//{
-	//case kBlendModeNone:
-	//	break;
-	//case kBlendModeNormal: // ノーマル
-	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
-	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
-	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
-	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;
-	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
-	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;
-	//	break;
-	//case kBlendModeAdd: // 加算合成
-	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;		  // ソースのアルファ値
-	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			  // 加算操作
-	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			  // デスティネーションのフルカラー
-	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		  // アルファのソースはそのまま
-	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	  // アルファの加算操作
-	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	  // アルファのデスティネーションは無視
-	//	break;
-	//case kBlendModeSubtract: // 減算合成
-	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;		 // ソースのアルファ値
-	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_REV_SUBTRACT; // 逆減算操作
-	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			 // デスティネーションのフルカラー
-	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
-	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
-	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
-	//	break;
-	//case kBlendModeMultiply: // 乗算合成
-	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_DEST_COLOR;	 // デスティネーションのカラー
-	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			 // 加算操作
-	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ZERO;			 // 乗算のためにデスティネーションのブレンドファクターをゼロに設定
-	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
-	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
-	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
-	//	break;
-	//case kBlendModeScreen: // スクリーン合成
-	//	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
-	//	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	//	blendDesc.RenderTarget[0].SrcBlend = D3D12_BLEND_INV_DEST_COLOR; // デスティネーションカラーの反転
-	//	blendDesc.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;			 // 加算操作
-	//	blendDesc.RenderTarget[0].DestBlend = D3D12_BLEND_ONE;			 // デスティネーションのフルカラー
-	//	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_ONE;		 // アルファのソースはそのまま
-	//	blendDesc.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;	 // アルファの加算操作
-	//	blendDesc.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_ZERO;	 // アルファのデスティネーションは無視
-	//	break;
-	//}
 #pragma endregion
 
 
@@ -1017,6 +961,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	depthStencilDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
 	//比較関数はLessEqual。つまり、近ければ描画される
 	depthStencilDesc.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
+	//Depthを描くのをやめる
+	depthStencilDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
 #pragma endregion
 
 
@@ -1173,10 +1119,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 #pragma region テクスチャファイルを読み込みテクスチャリソースを作成しそれに対してSRVを設定してこれらをデスクリプタヒープにバインド
 	// モデルの読み込み
-	ModelData modelData = LoadObjFile("resources", "plane.obj");
+	ModelData modelData = LoadObjFile("resources", "fence.obj");
 
 	//Textureを読んで転送する
-	DirectX::ScratchImage mipImages = LoadTexture("resources/uvChecker.png");
+	DirectX::ScratchImage mipImages = LoadTexture("resources/fence.png");
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
 	Microsoft::WRL::ComPtr <ID3D12Resource> textureResource = CreateTextureResource(device.Get(), metadata);
 	UploadTextureData(textureResource.Get(), mipImages);
