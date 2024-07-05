@@ -43,11 +43,11 @@ const int32_t kClientHeight = 720;
 enum BlendMode
 {
 	kBlendModeNone,		// ブレンドなし
-	kBlendModeNormal,	// 通常αブレンド、デフォルト
-	kBlendModeAdd,		// 加算
-	kBlendModeSubtract,	// 減算
-	kBlendModeMultiply, // 乗算
-	kBlendModeScreen,	// スクリーン
+	kBlendModeNormal,	// 通常αブレンド、デフォルト。Src * srcA + Dest * (1 - SrcA)
+	kBlendModeAdd,		// 加算 Src * SrcA + Dest * 1
+	kBlendModeSubtract,	// 減算 Dest * 1 - Src * SrcA
+	kBlendModeMultiply, // 乗算 Src * 0 + Dest * Src
+	kBlendModeScreen,	// スクリーン Src * (1 - Dest) + Dest * 1
 	kcountOfBlendMode,	// 利用してはいけない
 };
 
@@ -1299,12 +1299,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				ImGui::DragFloat3("scale", &transform.scale.x, 0.01f);
 				ImGui::DragFloat3("rotate", &transform.rotate.x, 0.01f);
 				ImGui::DragFloat3("translate", &transform.translate.x, 0.01f);
-				ImGui::ColorEdit4("color", &directionalLightData->color.x);
-				ImGui::Checkbox("useMonsterBall", &useMonsterBall);
+
+				ImGui::ColorEdit4("color", &materialData->color.x);
 				ImGui::DragFloat3("directionalLight", &directionalLightData->direction.x, 0.01f);
+				ImGui::DragFloat("intensity", &directionalLightData->intensity,0.01f);
+
+				ImGui::Checkbox("useMonsterBall", &useMonsterBall);
 				ImGui::DragFloat2("UVTranslete", &uvTransformSprite.translate.x, 0.01f, -10.0f, 10.0f);
 				ImGui::DragFloat2("UVScale", &uvTransformSprite.scale.x, 0.01f, -10.0f, 10.0f);
-				ImGui::DragFloat("intensity", &directionalLightData->intensity);
+
+
 				ImGui::SliderAngle("UVRotate", &uvTransformSprite.rotate.z);
 				ImGui::End();
 			}
