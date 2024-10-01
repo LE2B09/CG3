@@ -62,6 +62,12 @@ const char* blendModeNames[kcountOfBlendMode] = {
 	"kBlendModeScreen"       // スクリーン
 };
 
+// カメラの位置を送る
+struct CameraForGPU
+{
+	Vector3 worldPosition;
+};
+
 // comptrの構造体
 struct D3DResourceLeakChecker
 {
@@ -1122,7 +1128,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ModelData modelData = LoadObjFile("resources", "fence.obj");
 
 	//Textureを読んで転送する
-	DirectX::ScratchImage mipImages = LoadTexture("resources/fence.png");
+	DirectX::ScratchImage mipImages = LoadTexture("resources/uvChecker.png");
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
 	Microsoft::WRL::ComPtr <ID3D12Resource> textureResource = CreateTextureResource(device.Get(), metadata);
 	UploadTextureData(textureResource.Get(), mipImages);
@@ -1450,7 +1456,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			commandList->SetGraphicsRootConstantBufferView(1, wvpResource->GetGPUVirtualAddress());							// WVP用CBVを設定
 			commandList->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureSrvHandleGPU2 : textureSrvHandleGPU);	// SRVのディスクリプタテーブルを設定
 			commandList->SetGraphicsRootConstantBufferView(3, directionalLightResource->GetGPUVirtualAddress());			// ライトのCBVを設定
-			commandList->DrawInstanced(UINT(modelData.vertices.size()), 1, 0, 0);											// 描画コール。三角形を描画(頂点数を変えれば球体が出るようになる「TotalVertexCount」)
+			commandList->DrawInstanced(TotalVertexCount, 1, 0, 0);											// 描画コール。三角形を描画(頂点数を変えれば球体が出るようになる「TotalVertexCount」)
 
 			commandList->SetGraphicsRootDescriptorTable(2, textureSrvHandleGPU);
 
